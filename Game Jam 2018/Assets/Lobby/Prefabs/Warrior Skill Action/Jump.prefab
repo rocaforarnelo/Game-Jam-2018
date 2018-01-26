@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4843678827422512}
   - component: {fileID: 212881618236449802}
   - component: {fileID: 58632816264983200}
-  - component: {fileID: 114218198847624290}
+  - component: {fileID: 114990513714700324}
   m_Layer: 0
   m_Name: Jump
   m_TagString: Untagged
@@ -57,7 +57,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 5.1199994
---- !u!114 &114218198847624290
+--- !u!114 &114990513714700324
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1500453708301642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 551bd0efaf67f45a1ab8cc962aa0a3f6, type: 3}
+  m_Script: {fileID: 11500000, guid: e4cac360bdc74994d9a359a65630e863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCharacter: {fileID: 0}

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class WarriorSkillAction : SkillAction {
 
-	void OnMouseDown()
-	{
-		SetDone ();
-	}
+    public virtual void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            SetDone();
+        }
+    }
 }
