@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4968980028341556}
   - component: {fileID: 212338415783241238}
   - component: {fileID: 58008146765412810}
-  - component: {fileID: 114827969103079728}
+  - component: {fileID: 114533998701209954}
   m_Layer: 0
   m_Name: Pearl
   m_TagString: Untagged
@@ -57,7 +57,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.4999998
---- !u!114 &114827969103079728
+--- !u!114 &114533998701209954
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -65,11 +65,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1141146902833380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04af12c2a021e44068b962f33055cc60, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b08033fc4fcb5644a254685b055371b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCharacter: {fileID: 0}
-  Name: Pearl
+  Name: Ectoplasm
   Index: 3
 --- !u!212 &212338415783241238
 SpriteRenderer:

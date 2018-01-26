@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4498966482886528}
   - component: {fileID: 212491668901106670}
   - component: {fileID: 58272986195742610}
-  - component: {fileID: 114806458917211184}
+  - component: {fileID: 114474088517802822}
   m_Layer: 0
   m_Name: Imp Stool
   m_TagString: Untagged
@@ -57,7 +57,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.4999998
---- !u!114 &114806458917211184
+--- !u!114 &114474088517802822
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -65,11 +65,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1776877055505030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04af12c2a021e44068b962f33055cc60, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b08033fc4fcb5644a254685b055371b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCharacter: {fileID: 0}
-  Name: Imp Stool
+  Name: Honey
   Index: 0
 --- !u!212 &212491668901106670
 SpriteRenderer:
