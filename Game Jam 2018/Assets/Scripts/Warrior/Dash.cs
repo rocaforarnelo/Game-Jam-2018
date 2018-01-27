@@ -7,11 +7,12 @@ public class Dash : WarriorSkillAction
     public int DashInputCount;
     public int DashInputTarget;
 
-    public override void Update()
+	#if UNITY_ANDROID
+	public override void Update()
     {
         DashInput();
     }
-
+	#endif
     void DashInput()
     {
         if (DashInputCount < DashInputTarget)
@@ -23,6 +24,7 @@ public class Dash : WarriorSkillAction
         }
         else
         {
+			DashInputCount = 0;
             SetDone();
         }
     }

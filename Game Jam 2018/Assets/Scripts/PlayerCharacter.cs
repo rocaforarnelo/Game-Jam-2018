@@ -13,7 +13,7 @@ public class PlayerCharacter : MonoBehaviour {
 	public SkillAction[] SkillActions;
 	public SkillAction CurrentSkillAction;
 	public SkillActionPanel[] SkillActionPanels;
-	public GameObject SkillButtonsPanel;
+	public GameObject SkillButtonsPanel, SkillActionButtonsPanel, RequiredSkillActionsPanel;
 	public Text ActionValueLabel;
 
 	void Start()
@@ -62,20 +62,23 @@ public class PlayerCharacter : MonoBehaviour {
 
 	public virtual void SetCurrentSkillAction(int index)
 	{
+		if (CurrentSkill == null)
+			return;
 		DestroyCurrentSkillAction ();
 		SkillAction currentSkillActionInstance = Instantiate<SkillAction> (SkillActions [index], instantiationPosition, Quaternion.identity);
 		CurrentSkillAction = currentSkillActionInstance;
 		CurrentSkillAction.PlayerCharacter = this;
 	}
-
-
-
+	//TODO MAGIC STRINGS	
 	public void SetCurrentSkill(int index)
 	{
+		RequiredSkillActionsPanel.gameObject.SetActive (true);
+		RequiredSkillActionsPanel.GetComponent<Animator> ().SetTrigger ("Enter");
+		SkillActionButtonsPanel.SetActive (true);
+		SkillActionButtonsPanel.GetComponent<Animator> ().SetTrigger ("Enter");
 		DestroyCurrentSkill ();
 		InstantiateCurrentSkill (index);
 		Initialize ();
-		SkillButtonsPanel.SetActive (false);
 	}
 
 	private void DestroyCurrentSkill()

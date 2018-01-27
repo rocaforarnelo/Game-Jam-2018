@@ -8,10 +8,12 @@ public class Jump : WarriorSkillAction
     Vector2 touchPress;
     Vector2 touchRelease;
 
-    public override void Update()
+	#if UNITY_ANDROID
+	public override void Update()
     {
         JumpInput();
     }
+	#endif
     void JumpInput()
     {
         if (Input.GetMouseButtonDown(0))

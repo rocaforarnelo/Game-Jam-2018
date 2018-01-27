@@ -10,9 +10,9 @@ public class RollingBoulderRoom : Room {
 	public float TimerGuageFillAmount;
 	public Image TimerGuage;
 
-	public override void Initialize ()
+	public override void RpcInitialize ()
 	{
-		base.Initialize ();
+		base.RpcInitialize ();
 		StartCoroutine (TimerCoroutine ());
 	}
 

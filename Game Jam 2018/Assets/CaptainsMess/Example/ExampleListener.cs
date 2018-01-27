@@ -44,6 +44,7 @@ public class ExampleListener : CaptainsMessListener
 		ExampleGameSession oldSession = FindObjectOfType<ExampleGameSession>();
 		if (oldSession == null)
 		{
+			Debug.Log ("wew");
 			GameObject serverSession = Instantiate(gameSessionPrefab);
 			NetworkServer.Spawn(serverSession);
 		}

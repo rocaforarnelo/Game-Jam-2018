@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SpellCircleNode : MonoBehaviour {
+	private readonly string[] romanNumerals = new string[]{
+		"I", "II", "III", "IV", "V", "VI"
+	};
 	public SpellCircle SpellCircle;
 	public SpriteRenderer SpriteRenderer;
 	public Text IndexLabel;
@@ -12,7 +15,7 @@ public class SpellCircleNode : MonoBehaviour {
 
 	void Start()
 	{
-		IndexLabel.text = Index.ToString();
+		IndexLabel.text = romanNumerals[Index];
 	}
 
 	void OnMouseEnter()
@@ -29,26 +32,22 @@ public class SpellCircleNode : MonoBehaviour {
 			SetDone ();
 			SpellCircle.SetSpellCircleNodeDone ();
 		}
-		else
-		{
-			SpellCircle.Reset ();
-		}
 	}
 
 	public void SetDone()
 	{
-		SpriteRenderer.color = Color.green;
+		IndexLabel.color = Color.black;
 		IsDone = true;
 	}
 
 	public void Reset()
 	{
 		IsDone = false;
-		SpriteRenderer.color = Color.white;	
+		IndexLabel.color = Color.white;	
 	}
 		
 	public void SetCurrentNode()
 	{
-		SpriteRenderer.color = Color.red;
+		IndexLabel.color = Color.green;	
 	}
 }

@@ -250,6 +250,7 @@ namespace Prototype.NetworkLobby
         [ClientRpc]
         public void RpcUpdateCountdown(int countdown)
         {
+			_colorInUse.Clear ();
             LobbyManager.s_Singleton.countdownPanel.UIText.text = "Match Starting in " + countdown;
             LobbyManager.s_Singleton.countdownPanel.gameObject.SetActive(countdown != 0);
         }
@@ -271,40 +272,40 @@ namespace Prototype.NetworkLobby
         [Command]
         public void CmdSetCharacterIndex()
         {
-            int idx = System.Array.IndexOf(CharacterSprites, characterIndex);
-
-            int inUseIdx = _colorInUse.IndexOf(idx);
-
-            if (idx < 0) idx = 0;
-
-			idx = (idx + 1) % CharacterSprites.Length;
-
-            bool alreadyInUse = false;
-
-            do
-            {
-                alreadyInUse = false;
-                for (int i = 0; i < _colorInUse.Count; ++i)
-                {
-                    if (_colorInUse[i] == idx)
-                    {//that color is already in use
-                        alreadyInUse = true;
-						idx = (idx + 1) % CharacterSprites.Length;
-                    }
-                }
-            }
-            while (alreadyInUse);
-
-            if (inUseIdx >= 0)
-            {//if we already add an entry in the colorTabs, we change it
-                _colorInUse[inUseIdx] = idx;
-            }
-            else
-            {//else we add it
-                _colorInUse.Add(idx);
-            }
-
-			characterIndex = idx;
+//            int idx = System.Array.IndexOf(CharacterSprites, characterIndex);
+//
+//            int inUseIdx = _colorInUse.IndexOf(idx);
+//
+//            if (idx < 0) idx = 0;
+//
+//			idx = (idx + 1) % CharacterSprites.Length;
+//
+//            bool alreadyInUse = false;
+//			int chanceCount = 0;
+//            do
+//            {
+//                alreadyInUse = false;
+//                for (	int i = 0; i < _colorInUse.Count; ++i)
+//                {
+//                    if (_colorInUse[i] == idx)
+//                    {//that color is already in use
+//                        alreadyInUse = true;
+//						idx = (idx + 1) % CharacterSprites.Length;
+//                    }
+//                }
+//            }
+//            while (alreadyInUse);
+//
+//            if (inUseIdx >= 0)
+//            {//if we already add an entry in the colorTabs, we change it
+//                _colorInUse[inUseIdx] = idx;
+//            }
+//            else
+//            {//else we add it
+//                _colorInUse.Add(idx);
+//            }
+//			characterIndex = idx;
+			characterIndex = LobbyPlayerList._instance._players.Count - 1;
         }
 
         [Command]

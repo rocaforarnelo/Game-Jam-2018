@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SkillActionPanel : MonoBehaviour {
 	public Text Name;
 	public Image Panel;
+	public Sprite DefaultSprote, CorrectSprite;
 
 	public void Initialize(SkillAction skillAction)
 	{
@@ -14,12 +15,12 @@ public class SkillActionPanel : MonoBehaviour {
 
 	public void Reset()
 	{
-		Panel.color = Color.white;
+		Panel.sprite = DefaultSprote;
 		Name.text = string.Empty;
 	}
 
 	public void SetDone()
 	{
-		Panel.color = Color.green;
+		Panel.sprite = CorrectSprite;
 	}
 }

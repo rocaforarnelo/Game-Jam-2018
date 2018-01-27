@@ -1,0 +1,14 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Skill Action Instantiator Panel
+  m_Controller: {fileID: 9100000, guid: 82546f16d7d254542ba039aab295de07, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 28b6772568ecb4f55b53bbbd87579db7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 143b18e5cfcdf485e8ed604aaba1369c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 618924534107a461391ea58c9af7d055, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 861f8383e06b34df0bcedcc24d5ebc9e, type: 2}

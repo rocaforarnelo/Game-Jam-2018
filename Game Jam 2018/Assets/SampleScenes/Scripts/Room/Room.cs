@@ -12,7 +12,7 @@ public class Room : NetworkBehaviour {
 		instance = this;
 	}
 
-	public virtual void Initialize()
+	public virtual void RpcInitialize()
 	{
 		
 	}
@@ -20,7 +20,9 @@ public class Room : NetworkBehaviour {
 	[ClientRpc]
 	public virtual void RpcSetDone()
 	{
-		Dungeon.SetRoomDone ();
-		NetworkServer.Destroy(gameObject);
+		if (isServer) {
+			Dungeon.RpcSetRoomDone ();
+			NetworkServer.Destroy(gameObject);
+		}
 	}
 }

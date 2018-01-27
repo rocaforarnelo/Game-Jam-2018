@@ -44,6 +44,7 @@ public class NetworkPlayerCharacter : NetworkBehaviour
 	{
 		SetDonePanelActive (true);
 	}
+
 	[Command]
 	public void CmdAssignSkill(int index)
 	{
@@ -124,13 +125,6 @@ public class NetworkPlayerCharacter : NetworkBehaviour
             return;
     }
 
-    [ClientCallback]
-    void OnCollisionEnter(Collision coll)
-    {
-        if (isServer)
-            return; // hosting client, server path will handle collision
-
-    }
 
     [Client]
     public void LocalDestroy()
@@ -204,6 +198,7 @@ public class NetworkPlayerCharacter : NetworkBehaviour
 	public void RpcEnterDungeon()
 	{
 		NetworkGameManager.instance.EnterDungeon ();
-		Room.instance.Initialize ();
+		Room.instance.RpcInitialize ();
 	}
+
 }

@@ -7,11 +7,12 @@ public class Bash : WarriorSkillAction
     Vector2 touchPress;
     Vector2 touchRelease;
 
-    public override void Update()
+	#if UNITY_ANDROID
+	public override void Update()
     {
         BashInput();
     }
-
+	#endif
     void BashInput()
     {
         if (Input.GetMouseButtonDown(0))

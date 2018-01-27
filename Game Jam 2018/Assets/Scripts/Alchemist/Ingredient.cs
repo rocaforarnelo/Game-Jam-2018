@@ -6,7 +6,9 @@ public class Ingredient : SkillAction {
 
     public virtual void Update()
     {
-		SetDone ();
+		if (Input.GetMouseButtonDown (0)) {
+			SetDone ();
+		}
 	}
 }
 		

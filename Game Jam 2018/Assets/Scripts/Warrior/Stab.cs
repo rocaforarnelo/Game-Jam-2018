@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class Stab : WarriorSkillAction
 {
-
+	private const float yOffset = 2.0f;
     Vector2 touchPress;
     Vector2 touchRelease;
 
-    public override void Update()
+	#if UNITY_ANDROID
+	public override void Update()
     {
         HorizontalInput();
     }
+	#endif
 
     void HorizontalInput()
     {
@@ -24,7 +26,7 @@ public class Stab : WarriorSkillAction
         {
             touchRelease = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (((touchPress.x - touchRelease.x) < -2f || (touchPress.x - touchRelease.x) > 2f) &&
-                ((touchPress.y - touchRelease.y) > -.8f && (touchPress.y - touchRelease.y) < .8f))
+				((touchPress.y - touchRelease.y) > -yOffset && (touchPress.y - touchRelease.y) < yOffset))
             {
                 SetDone();
             }

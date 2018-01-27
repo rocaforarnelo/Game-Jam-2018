@@ -5,28 +5,36 @@ using UnityEngine.Networking;
 
 public class EnemyRoom : Room {
 	public int HpPerLevel;
-	public Sprite Icon;
 	public string EnemyName;
 	[SyncVar (hook = "OnHpChange")]
 	public int Hp;
-	
-	public override void Initialize ()
+//	[SyncVar]
+//	private int maxHp;
+
+	[ClientRpc]
+	public override void RpcInitialize ()
 	{
-		base.Initialize ();
+		base.RpcInitialize ();
 		Hp = HpPerLevel * NetworkGameManager.instance.Level;
+		//maxHp = Hp;
 		EnemyCanvas.sInstance.Initialize (this);
 	}
 
 	void OnHpChange(int newValue)
 	{
 		Hp = newValue;
-		EnemyCanvas.sInstance.InitializeHpValueLabel (Hp);
+		if (isServer) {
+			EnemyCanvas.sInstance.RpcInitializeHpValueLabel (Hp);
+		}
+		CheckDead ();
 	}
 
 	private void CheckDead()
 	{
 		if (Hp == 0) {
-			RpcSetDone ();
+			if (isServer) {
+				RpcSetDone ();
+			}
 		}
 	}
 

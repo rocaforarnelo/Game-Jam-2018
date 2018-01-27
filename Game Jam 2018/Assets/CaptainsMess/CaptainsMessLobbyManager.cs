@@ -110,6 +110,7 @@ public class CaptainsMessLobbyManager : NetworkManager
         var newLobbyGameObject = OnLobbyServerCreateLobbyPlayer(conn, playerControllerId);
         if (newLobbyGameObject == null)
         {
+			Debug.Log ("Instantiate");
             newLobbyGameObject = (GameObject)Instantiate(playerPrefab.gameObject, Vector3.zero, Quaternion.identity);
         }
 

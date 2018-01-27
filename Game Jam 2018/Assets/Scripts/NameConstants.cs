@@ -13,11 +13,11 @@ public static class NameConstants {
 	};
 
 	public static readonly string[] AlchemistkillNames = new string[]{
-		"Fortify Destruction", "Dynamite", "StaminaPotion"
+		"Moon Shine", "Ambrosia", "Plague Bomb"
 	};
 
 	public static readonly string[] WarriorSkillNames = new string[]{
-		"Jumpig Dragon Slash", "Swashbuckle", "Holy Shield"
+		"Rising Dragon Slash", "Swashbuckle", "Retaliate"
 	};
 
 	public static string[][] SkillNames = new string[][] {

@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Swipe : Ingredient
 {
+	private const float touchThreshold = 2.0f;
     Vector2 touchPress;
     Vector2 touchRelease;
 
+	#if UNITY_ANDROID
     public override void Update()
     {
         SwipeIngredients();
     }
+	#endif
 
     void SwipeIngredients()
     {
@@ -21,7 +24,7 @@ public class Swipe : Ingredient
         if (Input.GetMouseButtonUp(0))
         {
             touchRelease = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if ((touchPress.y - touchRelease.y) < -2f)
+			if (Mathf.Abs(touchPress.x - touchRelease.x) > touchThreshold || Mathf.Abs(touchPress.y - touchRelease.y) > touchThreshold)
             {
                 SetDone();
             }

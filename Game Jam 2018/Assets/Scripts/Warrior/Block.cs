@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Block : WarriorSkillAction
 {
-
-    public override void Update()
+	#if UNITY_ANDROID
+	public override void Update()
     {
         BlockInput();
     }
-
+	#endif
     void BlockInput()
     {
         if (Input.touchCount == 2)

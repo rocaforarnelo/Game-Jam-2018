@@ -9,15 +9,19 @@ public class NetworkGameManager : NetworkBehaviour
 {
 	public GameObject DungeonEntrance;
 	private const int roomsPerLevel = 5;
-	[SyncVar]
+	[SyncVar(hook = "OnLevelChange")]
 	public int Level = 1;
 	[SyncVar(hook = "OnHpChanged")]
 	public int PlayerHp;
-	public Text LevelValueLabel, PlayerHpValueLabel;
-	public GameObject GameOverPanel;
+	public Text LevelValueLabel, PlayerHpValueLabel, DungeonEntranceLevelValueLabel;
+	public Image PlayerHpGuage;
+	public GameObject GameOverPanel, ScratchAnimation;
 	public Room[] RoomPrefabs;
+	public Room[] BossRoomPrefabs;
 	public EnemyCanvas EnemyCanvas;
 	public Dungeon Dungeon;
+	public bool IsTest;
+	private int maxHp = 5;
 	static public List<NetworkPlayerCharacter> sNetworkPlayerCharacters = new List<NetworkPlayerCharacter>();
     static public NetworkGameManager instance = null;
 	[SyncVar]
@@ -30,13 +34,41 @@ public class NetworkGameManager : NetworkBehaviour
 		
     void Start()
     {
-		Initialize ();
+		if (isServer) {
+			Initialize ();
+		}
 		DungeonEntrance.SetActive (true);
+		//EnteredDungeon = false;
 		for (int i = 0; i < sNetworkPlayerCharacters.Count; i++) {
 			sNetworkPlayerCharacters [i].Init ();
 		}
 		InitializeLabels ();
     }
+	[ClientRpc]
+	public void RpcOpenDungeon()
+	{
+		DungeonEntrance.SetActive (true);
+		EnteredDungeon = false;
+		DungeonEntranceLevelValueLabel.gameObject.SetActive (true);
+	}
+
+	[ClientRpc]
+	public void RpcLevelUp()
+	{
+		Initialize ();
+		Level++;
+		RpcOpenDungeon ();
+	}
+
+	void OnLevelChange(int newLevel)
+	{
+		Level = newLevel;
+		LevelValueLabel.text = Level.ToString ();
+		DungeonEntranceLevelValueLabel.text = Level.ToString ();
+		if (isServer) {
+			RpcOpenDungeon ();
+		}
+	}
 
 	public void EnterDungeon()
 	{
@@ -56,6 +88,7 @@ public class NetworkGameManager : NetworkBehaviour
 		SetPlayerHpValueLabel ();
 		SetLevelValueLabel ();
 	}
+
 	[Server]
 	public void Damage()
 	{
@@ -65,7 +98,10 @@ public class NetworkGameManager : NetworkBehaviour
 	void OnHpChanged(int newValue)
 	{
 		PlayerHp = newValue;
+		PlayerHpGuage.fillAmount = (float)PlayerHp / (float)maxHp;
+		ScratchAnimation.gameObject.SetActive (true);
 		InitializeLabels ();
+		CheckIfGameOver ();
 	}
 
 	private void SetLevelValueLabel()
@@ -87,22 +123,24 @@ public class NetworkGameManager : NetworkBehaviour
 	[Server]
 	public void Damage(int value)
 	{
-		PlayerHp -= value;
-		CheckIfGameOver ();
-	}
+		PlayerHp -= value;	}
 
 	private void CheckIfGameOver()
 	{
 		if(PlayerHp <= 0)
 		{
 			PlayerHp = 0;
-			SetGameOver ();
+			RpcGameOver ();
 		}
 	}
-	[Server]
-	public void SetGameOver()
+	[ClientRpc]
+	public void RpcGameOver()
 	{
-		GameOverPanel.SetActive (true);	
+		GameOverPanel.SetActive (true);
+		if (isServer) {
+			ReturnToLobby ();
+		}
+		//StartCoroutine (ReturnToLobyCoroutine ());
 	}
 
     [ServerCallback]
@@ -110,9 +148,14 @@ public class NetworkGameManager : NetworkBehaviour
     {
 		if(sNetworkPlayerCharacters.Count == 0 || !NetworkServer.active)
         {
-            StartCoroutine(ReturnToLoby());
-        }
+			ReturnToLobby ();
+		}
     }
+
+	public void ReturnToLobby()
+	{
+		LobbyManager.s_Singleton.ServerReturnToLobby();
+	}
 
     public override void OnStartClient()
     {
@@ -122,11 +165,14 @@ public class NetworkGameManager : NetworkBehaviour
         {
             ClientScene.RegisterPrefab(obj.gameObject);
         }
+		foreach (Room obj in BossRoomPrefabs) {
+			ClientScene.RegisterPrefab (obj.gameObject);
+		}
     }
 
-    IEnumerator ReturnToLoby()
+    IEnumerator ReturnToLobyCoroutine()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(5.0f);
         LobbyManager.s_Singleton.ServerReturnToLobby();
     }
 

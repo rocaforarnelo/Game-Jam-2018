@@ -35,7 +35,7 @@ namespace Prototype.NetworkLobby
         protected RectTransform currentPanel;
 
         public Button backButton;
-
+		public Text ipAddressValueLabel;
         public Text statusInfo;
         public Text hostInfo;
 
@@ -59,10 +59,9 @@ namespace Prototype.NetworkLobby
             s_Singleton = this;
             _lobbyHooks = GetComponent<Prototype.NetworkLobby.LobbyHook>();
             currentPanel = mainMenuPanel;
-
             backButton.gameObject.SetActive(false);
             GetComponent<Canvas>().enabled = true;
-
+			ipAddressValueLabel.text = Network.player.ipAddress;
             DontDestroyOnLoad(gameObject);
 
             SetServerInfo("Offline", "None");
@@ -301,6 +300,7 @@ namespace Prototype.NetworkLobby
         //But OnLobbyClientConnect isn't called on hosting player. So we override the lobbyPlayer creation
         public override GameObject OnLobbyServerCreateLobbyPlayer(NetworkConnection conn, short playerControllerId)
         {
+			Debug.Log ("Instantiate");
             GameObject obj = Instantiate(lobbyPlayerPrefab.gameObject) as GameObject;
 
             LobbyPlayer newPlayer = obj.GetComponent<LobbyPlayer>();

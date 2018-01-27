@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class EnemyCanvas : NetworkBehaviour {
-	private const float actionDuration = 100;
-	public Image EnemyIcon, HpGuage, TimerGuage, EnemyBlock;
+	private const float actionDuration = 10;
+	public Image EnemyIcon, HpGuage, TimerGuage, EnemyBlock, EnemySprite;
 	public Text EnemyNameValueLabel, HpValueLabel, EnemyActionValueLabel, ActionLifeValueLabel;
 	static public EnemyCanvas sInstance = null;
 	[SyncVar]
@@ -17,6 +17,8 @@ public class EnemyCanvas : NetworkBehaviour {
 	public float TimerGuageFillAmount;
 	[SyncVar (hook = "OnChangeEnemyActionString")]
 	public string EnemyActionString;
+	[SyncVar (hook = "OnChangeEnemySpriteString")]
+	public string EnemySpriteName;
 	private IEnumerator actionTimerCoroutine;
 
 	void Awake()
@@ -26,11 +28,29 @@ public class EnemyCanvas : NetworkBehaviour {
 
 	public void Initialize(EnemyRoom enemyRoom)
 	{
-		EnemyIcon.sprite = enemyRoom.Icon;
+		if (isServer) {
+			RpcChangeSprite (enemyRoom.EnemyName);
+		}
+		Attacking = true;
 		EnemyBlock.gameObject.SetActive (false);
 		InitializeLabels (enemyRoom);
 		InitializeImages ();
-		RpcActionTimerCaller ();
+		if (isServer) {
+			RpcActionTimerCaller ();
+		}
+	}
+
+	public void OnChangeEnemySpriteString(string newValue)
+	{
+		EnemySpriteName = newValue;
+		Sprite enemySprite = Resources.Load<Sprite> (EnemySpriteName);
+		EnemyIcon.sprite = enemySprite;
+		EnemySprite.sprite = enemySprite;
+	}
+
+	public void RpcChangeSprite(string spriteName)
+	{
+		EnemySpriteName = spriteName;
 	}
 
 	public void OnChangeTimerFillAmount(float newValue)
@@ -64,7 +84,9 @@ public class EnemyCanvas : NetworkBehaviour {
 	public void ActionSuccesful()
 	{
 		NetworkGameManager.instance.ResetPlayers ();
-		StopActionTimer ();
+		if (isServer) {
+			StopActionTimer ();
+		}
 		if (!Attacking) {
 			(EnemyRoom.instance as EnemyRoom).Damage ();
 		} 
@@ -90,11 +112,19 @@ public class EnemyCanvas : NetworkBehaviour {
 		NetworkGameManager.instance.ResetPlayers ();
 		ActionLife = NetworkGameManager.sNetworkPlayerCharacters.Count;
 		EnemyActionString = GetEnemyActionString ();
-		actionTimerCoroutine = ActionTimer ();
-		StartCoroutine (actionTimerCoroutine);
+		if (isServer) {
+			StartTimer ();
+		}
 		AssignSkills ();
 	}
+	[Server]
+	private void StartTimer()
+	{
+		actionTimerCoroutine = ActionTimer ();
+		StartCoroutine (actionTimerCoroutine);
+	}
 
+	[Server]
 	public void StopActionTimer()
 	{
 		if (actionTimerCoroutine != null) {
@@ -133,7 +163,9 @@ public class EnemyCanvas : NetworkBehaviour {
 	public void EndAction()
 	{
 		Attacking = !Attacking;
-		RpcActionTimerCaller ();
+		if (isServer) {
+			RpcActionTimerCaller ();
+		}
 	}
 
 	private void InitializeLabels(EnemyRoom enemyRoom)
@@ -142,8 +174,8 @@ public class EnemyCanvas : NetworkBehaviour {
 		HpValueLabel.text = enemyRoom.Hp.ToString();
 
 	}
-
-	public void InitializeHpValueLabel(int hp)
+	[ClientRpc]
+	public void RpcInitializeHpValueLabel(int hp)
 	{
 		HpValueLabel.text = hp.ToString ();
 	}
