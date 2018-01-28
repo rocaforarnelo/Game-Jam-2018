@@ -14,6 +14,7 @@ public class Block : WarriorSkillAction
     {
         if (Input.touchCount == 2)
         {
+            AudioController.Instance.PlayWarriorSfx(1);
             SetDone();
         }
     }

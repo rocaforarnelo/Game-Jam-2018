@@ -24,6 +24,7 @@ public class Bash : WarriorSkillAction
             touchRelease = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if ((touchPress.y - touchRelease.y) > 2f)
             {
+                AudioController.Instance.PlayWarriorSfx(0);
                 SetDone();
             }
         }
