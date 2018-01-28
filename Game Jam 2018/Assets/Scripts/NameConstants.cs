@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class NameConstants {
+	public static readonly string[] Actions = new string[]{
+		"Prepare", "Cast", "Do"
+	};
 
 	public static readonly string[] CharacterNames = new string[]{
 		"Alchemist", "Wizard", "Warrior"

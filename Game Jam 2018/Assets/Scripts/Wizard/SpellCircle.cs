@@ -33,8 +33,8 @@ public class SpellCircle : SkillAction {
 
 	public override void SetDone ()
 	{
-		base.SetDone ();
 		InstantiateEndAnimation ();
+		base.SetDone ();
 	}
 
 	private void InstantiateEndAnimation()

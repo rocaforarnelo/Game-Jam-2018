@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class EnemyCanvas : NetworkBehaviour {
-	private const float actionDuration = 10;
+	private const float actionDuration = 50;
 	public Image EnemyIcon, HpGuage, TimerGuage, EnemyBlock, EnemySprite;
 	public Text EnemyNameValueLabel, HpValueLabel, EnemyActionValueLabel, ActionLifeValueLabel;
 	static public EnemyCanvas sInstance = null;
@@ -19,6 +19,7 @@ public class EnemyCanvas : NetworkBehaviour {
 	public string EnemyActionString;
 	[SyncVar (hook = "OnChangeEnemySpriteString")]
 	public string EnemySpriteName;
+	public GameObject ScratchAnimation;
 	private IEnumerator actionTimerCoroutine;
 
 	void Awake()
@@ -178,6 +179,7 @@ public class EnemyCanvas : NetworkBehaviour {
 	public void RpcInitializeHpValueLabel(int hp)
 	{
 		HpValueLabel.text = hp.ToString ();
+		//ScratchAnimation.SetActive (true);
 	}
 
 	public void Reset()

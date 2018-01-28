@@ -61,7 +61,7 @@ public class NetworkPlayerCharacter : NetworkBehaviour
 
 	public string GetCommandString(int playerCharacterIndex, int skillIndex)
 	{
-		return "Tell " + NameConstants.CharacterNames [playerCharacterIndex] + " to use " + NameConstants.SkillNames[playerCharacterIndex][skillIndex];
+		return "Tell " + NameConstants.CharacterNames [playerCharacterIndex].ToUpper () + " to " + NameConstants.Actions[playerCharacterIndex] + " " + NameConstants.SkillNames[playerCharacterIndex][skillIndex].ToUpper();
 	}
 
 	public void OnActionValueChange(string newValue)

@@ -151,7 +151,7 @@ namespace Prototype.NetworkLobby
         }
 
         public override void OnClientReady(bool readyState)
-        {
+        {	
             if (readyState)
             {
                 ChangeReadyButtonColor(TransparentColor);

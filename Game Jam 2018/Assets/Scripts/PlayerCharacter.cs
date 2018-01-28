@@ -7,7 +7,7 @@ public class PlayerCharacter : MonoBehaviour {
 	public NetworkPlayerCharacter NetworkPlayerCharacter;
 	public int Index;
 	public const int SkillCount = 3;
-	private readonly Vector2 instantiationPosition = new Vector2 (15.0f, 8.0f);
+	private readonly Vector2 instantiationPosition = new Vector2 (0.0f, 0.0f);
 	public Skill CurrentSkill;
 	public Skill[] Skills;
 	public SkillAction[] SkillActions;
