@@ -2945,6 +2945,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 838870a85fb473a499da1c3462456c5c, type: 3}
   - {fileID: 8300000, guid: 6f73894ca0ee5d844ba7ea9fcb8fdb7d, type: 3}
   - {fileID: 8300000, guid: 7b1e7912ebdca7e45964db8631132cb5, type: 3}
+  - {fileID: 8300000, guid: 26eb98c465ccbb14a96e13758e41ef34, type: 3}
   WarriorSfxs:
   - {fileID: 8300000, guid: 90d1320c32d237b46a750b05df5be93a, type: 3}
   - {fileID: 8300000, guid: 827714622aa189041a36d2547a7be462, type: 3}

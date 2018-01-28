@@ -37,4 +37,9 @@ public class AudioController : MonoBehaviour {
     {
         audioSource.PlayOneShot(AlchemistSfxs[index]);
     }
+
+    public void ButtonSfx()
+    {
+        audioSource.PlayOneShot(Sfxs[0]);
+    }
 }
