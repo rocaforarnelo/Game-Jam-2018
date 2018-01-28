@@ -28,6 +28,7 @@ public class Stab : WarriorSkillAction
             if (((touchPress.x - touchRelease.x) < -2f || (touchPress.x - touchRelease.x) > 2f) &&
 				((touchPress.y - touchRelease.y) > -yOffset && (touchPress.y - touchRelease.y) < yOffset))
             {
+                AudioController.Instance.PlayWarriorSfx(4);
                 SetDone();
             }
         }

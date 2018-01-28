@@ -26,6 +26,7 @@ public class Slash : WarriorSkillAction
             if ((touchPress.y - touchRelease.y) < -2f && ((touchPress.x - touchRelease.x) > 2f || (touchPress.x - touchRelease.x) < -2f) ||
                 (touchPress.y - touchRelease.y) > 2f && ((touchPress.x - touchRelease.x) > 2f || (touchPress.x - touchRelease.x) < -2f))
             {
+                AudioController.Instance.PlayWarriorSfx(3);
                 SetDone();
             }
         }

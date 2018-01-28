@@ -25,6 +25,7 @@ public class Dash : WarriorSkillAction
         else
         {
 			DashInputCount = 0;
+            AudioController.Instance.PlayWarriorSfx(2);
             SetDone();
         }
     }

@@ -25,6 +25,7 @@ public class Jump : WarriorSkillAction
             touchRelease = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if ((touchPress.y - touchRelease.y) < -2f)
             {
+                AudioController.Instance.PlayWarriorSfx(2);
                 SetDone();
             }
         }

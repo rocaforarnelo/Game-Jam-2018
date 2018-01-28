@@ -60,8 +60,10 @@ public class Water : Ingredient {
 		if (deltaAcceleration.sqrMagnitude >= shakeDetectionThreshold)
 		{
 			currentShakeCount++;
-			if (currentShakeCount >= MaxShakeCount) {
-				SetDone ();
+			if (currentShakeCount >= MaxShakeCount)
+            {
+                AudioController.Instance.PlayAlchemistSfx(1);
+                SetDone ();
 				currentShakeCount = 0;
 			}
 			Debug.Log("Shake event detected at time "+Time.time);

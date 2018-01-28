@@ -26,6 +26,7 @@ public class Swipe : Ingredient
             touchRelease = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			if (Mathf.Abs(touchPress.x - touchRelease.x) > touchThreshold || Mathf.Abs(touchPress.y - touchRelease.y) > touchThreshold)
             {
+                AudioController.Instance.PlayWarriorSfx(4);
                 SetDone();
             }
         }
